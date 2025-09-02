@@ -9,7 +9,7 @@ import { CartProvider } from './useContexts/CartContext.js'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />
+    element: <Home />
   },
   {
     path: '/home',
