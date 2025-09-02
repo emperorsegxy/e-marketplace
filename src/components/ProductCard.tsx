@@ -1,6 +1,7 @@
 import { Product } from "@/types/product";
 import { useCart } from "../useContexts/CartContext";
 import { useState } from "react";
+import currencyFormatter from "../utils/currencyFormatter";
 
 interface ProductCardProps {
     product: Product
@@ -9,16 +10,6 @@ interface ProductCardProps {
 function ProductCard ({ product }: ProductCardProps) {
     const [isAdding, setIsAdding] = useState(false)
     const {addToCart } = useCart()
-
-    const convertToPrice = (amount: number) => {
-        const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            minimumFractionDigits: 2, // Ensure at least two decimal places for cents
-            maximumFractionDigits: 2,
-            currency: 'NGN'
-        })
-        return formatter.format(amount)
-    }
 
     const handleAddToCart = () => {
         setIsAdding(true)
@@ -41,7 +32,7 @@ function ProductCard ({ product }: ProductCardProps) {
                     <h3>{product.description}</h3>
                 </div>
                 <div className="price">
-                    <h2>{convertToPrice(product.price)}</h2>
+                    <h2>{currencyFormatter(product.price)}</h2>
                 </div>
                 <div className="card-footer">
                     <button disabled={isAdding} onClick={handleAddToCart} className="`w-full bg-gradient-primary hover:shadow-glow transition-all duration-300 ${
